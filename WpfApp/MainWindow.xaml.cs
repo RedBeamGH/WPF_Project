@@ -161,7 +161,7 @@ namespace WpfApp
             try
             {
                 oxyPlotModel = new OxyPlotModel(viewData.splineData, viewData.rawData);
-                SplinePlot.DataContext = oxyPlotModel.plotModel;
+                SplinePlot.Model = oxyPlotModel.plotModel;
 
             }
             catch (Exception ex)

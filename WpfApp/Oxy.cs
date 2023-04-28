@@ -39,16 +39,15 @@ namespace WpfApp
             Legend legend_rd = new Legend();
             LineSeries lineSeries_rd = new LineSeries();
             lineSeries_rd.Title = "Original function";
+            lineSeries_rd.Color = OxyColors.Red;
+
+            lineSeries_rd.MarkerType = MarkerType.Circle;
+            lineSeries_rd.MarkerSize = 4;
+            lineSeries_rd.MarkerStroke = OxyColors.Red;
+            lineSeries_rd.MarkerFill = OxyColors.Red;
             for (int js = 0; js < rawData.n; js++)
             {
-                OxyColor color = (js == 0) ? OxyColors.Red : OxyColors.Black;
                 lineSeries_rd.Points.Add(new DataPoint(rawData.Grid[js], rawData.Data[js]));
-                lineSeries_rd.Color = color;
-
-                lineSeries_rd.MarkerType = MarkerType.Circle;
-                lineSeries_rd.MarkerSize = 4;
-                lineSeries_rd.MarkerStroke = color;
-                lineSeries_rd.MarkerFill = color;
             }
             plotModel.Legends.Add(legend_rd);
             plotModel.Series.Add(lineSeries_rd);

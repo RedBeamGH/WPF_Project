@@ -132,8 +132,6 @@
                 <TextBlock Name="TextBox_Dirs" HorizontalAlignment="Stretch" Margin="2"  VerticalAlignment="Top" Text="{Binding ElementName=ListBox_SplineData, Path=SelectedItem}"/>
             </Border>
         </StackPanel>
-        <Grid Name ="SplinePlot" Grid.Column="1" Grid.ColumnSpan="2" Margin="367,0,0,1" Grid.RowSpan="2" >
-            <oxy:PlotView Model="{Binding oxyPlotModel}"/>
-        </Grid>
-    </Grid>
+        <oxy:PlotView Name ="SplinePlot" Margin="0,43,0,17" Grid.RowSpan="2" Grid.Row="1"/>
+     </Grid>
 </Window>

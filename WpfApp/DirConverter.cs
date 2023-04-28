@@ -13,7 +13,13 @@ namespace WpfApp
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return "0;0";
+            try
+            {
+                double[] arr = (double[])value;
+                return arr[0].ToString() + ";" + arr[1].ToString();
+            }
+            catch { }
+            return DependencyProperty.UnsetValue;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
