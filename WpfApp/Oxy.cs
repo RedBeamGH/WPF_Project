@@ -45,6 +45,7 @@ namespace WpfApp
             lineSeries_rd.MarkerSize = 4;
             lineSeries_rd.MarkerStroke = OxyColors.Red;
             lineSeries_rd.MarkerFill = OxyColors.Red;
+
             for (int js = 0; js < rawData.n; js++)
             {
                 lineSeries_rd.Points.Add(new DataPoint(rawData.Grid[js], rawData.Data[js]));

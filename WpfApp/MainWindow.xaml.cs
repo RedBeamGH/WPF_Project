@@ -30,7 +30,6 @@ namespace WpfApp
 
         public static RoutedCommand LoadFromControlsCommand = new RoutedCommand("LoadFromControlsCommand", typeof(MainWindow));
         public static RoutedCommand LoadFromFileCommand = new RoutedCommand("LoadFromFileCommand", typeof(MainWindow));
-        public static RoutedCommand SaveCommand = new RoutedCommand("SaveCommand", typeof(MainWindow));
 
 
         public MainWindow()
@@ -38,6 +37,7 @@ namespace WpfApp
             InitializeComponent();
             DataContext = viewData;
             comboBox_Enum.ItemsSource = Enum.GetValues(typeof(FRawEnum));
+            RB_U.IsChecked = true;
         }
 
         public void ShowData() 
@@ -99,7 +99,7 @@ namespace WpfApp
         private void CanSaveCommandHandler(object sender, CanExecuteRoutedEventArgs e)
         {
             if (nRaw != null)
-                e.CanExecute = !Validation.GetHasError(nRaw) && (viewData.rawData != null);
+                e.CanExecute = !Validation.GetHasError(nRaw) && !Validation.GetHasError(right) && (viewData.rawData != null);
             else 
                 e.CanExecute = true;
         }
@@ -113,7 +113,7 @@ namespace WpfApp
         private void CanLoadFromControlsCommandHandler(object sender, CanExecuteRoutedEventArgs e)
         {
             if (nRaw != null && nSpline != null)
-                e.CanExecute = !(Validation.GetHasError(nRaw) || Validation.GetHasError(nSpline));
+                e.CanExecute = !(Validation.GetHasError(nRaw) || Validation.GetHasError(nSpline) || Validation.GetHasError(right) || Validation.GetHasError(left));
             else
                 e.CanExecute = true;
         }
@@ -130,9 +130,6 @@ namespace WpfApp
                 {
                     string filename = dlg.FileName;
                     viewData.Load(filename);
-                    viewData.left = viewData.rawData.left;
-                    viewData.right = viewData.rawData.right;
-                    viewData.nRaw = viewData.rawData.n;
                     viewData.splineData = new SplineData(viewData.rawData, viewData.Dirs[0], viewData.Dirs[1], viewData.nSpline);
                     int res = viewData.splineData.MakeSpline();
                     if (res != 0)

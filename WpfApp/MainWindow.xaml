@@ -62,7 +62,7 @@
         <Button Content="Save" Margin="229,18,38,17" Grid.Row="2" Command="ApplicationCommands.Save" Grid.Column="1"/>
         <StackPanel Margin="10,24,282,0"  VerticalAlignment="Top" Height="42">
             <TextBlock HorizontalAlignment="Left" Margin="2"  VerticalAlignment="Top" ><Run Text="Левый конец отрезка"/></TextBlock>
-            <TextBox HorizontalAlignment="Stretch" Margin="2"  VerticalAlignment="Top"  AutomationProperties.ItemType="double">
+            <TextBox Name="left" HorizontalAlignment="Stretch" Margin="2"  VerticalAlignment="Top"  AutomationProperties.ItemType="double">
                 <TextBox.Text>
                     <Binding Path="left" Converter="{StaticResource StrToDoubleConverter}">
                         <Binding.ValidationRules>
@@ -92,7 +92,7 @@
         </StackPanel>
         <StackPanel Margin="10,65,282,0"  VerticalAlignment="Top" Height="42">
             <TextBlock HorizontalAlignment="Left" Margin="2"  VerticalAlignment="Top" Text="Правый конец отрезка"></TextBlock>
-            <TextBox HorizontalAlignment="Stretch" Margin="2"  VerticalAlignment="Top" AutomationProperties.ItemType="double">
+            <TextBox Name="right" HorizontalAlignment="Stretch" Margin="2"  VerticalAlignment="Top" AutomationProperties.ItemType="double">
                 <TextBox.Text>
                     <Binding Path="right" Converter="{StaticResource StrToDoubleConverter}">
                         <Binding.ValidationRules>
@@ -108,18 +108,21 @@
             <TextBlock HorizontalAlignment="Left" Margin="2" Width="231" ><Run Language="ru-ru" Text="Вторая производная на концах отрезка"/></TextBlock>
             <TextBox Name="Dirs" HorizontalAlignment="Stretch" Margin="2">
                 <TextBox.Text>
-                    <Binding Path="Dirs" Converter="{StaticResource DirConverter}">
+                    <Binding Path="Dirs" Converter="{StaticResource DirConverter}"/>
+                </TextBox.Text>
+            </TextBox>
+        </StackPanel>
+        <StackPanel Margin="0,66,116,0"  VerticalAlignment="Top" Height="42" HorizontalAlignment="Right" Width="147">
+            <TextBlock HorizontalAlignment="Left" Text ="Число узлов сплайна" Margin="2"  VerticalAlignment="Top" />
+            <TextBox Name="nSpline"  HorizontalAlignment="Stretch" Margin="2"  VerticalAlignment="Top" AutomationProperties.ItemType="int">
+                <TextBox.Text>
+                    <Binding Path="nSpline">
                         <Binding.ValidationRules>
                             <DataErrorValidationRule />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-        </StackPanel>
-        <StackPanel Margin="0,66,116,0"  VerticalAlignment="Top" Height="42" HorizontalAlignment="Right" Width="147">
-            <TextBlock HorizontalAlignment="Left" Text ="Число узлов сплайна" Margin="2"  VerticalAlignment="Top" />
-            <TextBox Name="nSpline"  HorizontalAlignment="Stretch" Margin="2"  VerticalAlignment="Top" 
-                Text="{Binding nSpline}" AutomationProperties.ItemType="int"/>
         </StackPanel>
         <ListBox Name="ListBox_RawData" Margin="10,144,268,198" Grid.RowSpan="2"/>
         <ListBox Name="ListBox_SplineData" ItemTemplate="{StaticResource SplineTemplate}" Margin="176,144,10,198" Grid.RowSpan="2" />

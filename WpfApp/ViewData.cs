@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -10,13 +11,47 @@ using System.Windows;
 
 namespace WpfApp
 {
-    public class ViewData : IDataErrorInfo
+    public class ViewData : IDataErrorInfo, INotifyPropertyChanged
     {
         // RawData 
 
-        public double left { get; set; }
-        public double right { get; set; }
-        public int nRaw { get; set; }
+        private double _left;
+        private double _right;
+        private int _nRaw;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+        public double left
+        {
+            get { return _left; }
+            set
+            {
+                _left = value;
+                OnPropertyChanged("left");
+            }
+        }
+        public double right
+        {
+            get { return _right; }
+            set
+            {
+                _right = value;
+                OnPropertyChanged("right");
+            }
+        }
+        public int nRaw
+        {
+            get { return _nRaw; }
+            set
+            {
+                _nRaw = value;
+                OnPropertyChanged("nRaw");
+            }
+        }
         public bool isUniform { get; set; }
         public FRaw func { get; set; }
         public FRawEnum fRawEnum { get; set; }
@@ -56,13 +91,9 @@ namespace WpfApp
                     MessageBox.Show(res.ToString());
                 }
             }
-            catch (DllNotFoundException ex) 
+            catch (Exception ex) 
             {
                 MessageBox.Show(ex.Message);
-                foreach (var item in ex.Data.Values)
-                {
-                    MessageBox.Show(item.ToString());
-                }
             } 
         }
 
@@ -89,6 +120,15 @@ namespace WpfApp
             try
             {
                 RawData.Load(filename, out rawData);
+                if (rawData == null)
+                {
+                    MessageBox.Show("Can not load data from file");
+                    return;
+                }
+                left = rawData.left; 
+                right = rawData.right;
+                nRaw = rawData.n;
+
             }
             catch (Exception ex)
             {
@@ -134,6 +174,11 @@ namespace WpfApp
                         break;
 
                     case "left":
+                        if (left >= right)
+                        {
+                            errorMessage = "The left endpoint must be less than the right endpoint";
+                        }
+                        break;
                     case "right":
                         if (left >= right)
                         {
