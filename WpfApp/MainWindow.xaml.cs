@@ -113,7 +113,7 @@ namespace WpfApp
         private void CanLoadFromControlsCommandHandler(object sender, CanExecuteRoutedEventArgs e)
         {
             if (nRaw != null && nSpline != null)
-                e.CanExecute = !(Validation.GetHasError(nRaw) || Validation.GetHasError(nSpline) || Validation.GetHasError(right) || Validation.GetHasError(left));
+                e.CanExecute = !(Validation.GetHasError(nRaw) || Validation.GetHasError(nSpline) || Validation.GetHasError(right));
             else
                 e.CanExecute = true;
         }
